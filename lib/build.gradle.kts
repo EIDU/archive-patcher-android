@@ -32,13 +32,17 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    api("com.eidu:archive-patcher:2.0.1")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.2")
+
+    api("com.eidu:archive-patcher:2.2.0")
     androidTestImplementation("androidx.test:core:1.5.0")
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
