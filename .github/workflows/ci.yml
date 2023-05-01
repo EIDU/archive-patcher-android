@@ -1,0 +1,117 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '*'
+
+
+jobs:
+  CI:
+    runs-on: macos-12
+
+    env:
+      GITHUB_USER: ${{ github.actor }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      READPACKAGES_GITHUB_USER: ${{ secrets.GH_READPACKAGES_USER }}
+      READPACKAGES_GITHUB_TOKEN: ${{ secrets.GH_READPACKAGES_TOKEN }}
+
+    steps:
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Run instrumented tests on Android 5
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 21
+          arch: x86_64
+          script: ./gradlew connectedCheck --stacktrace
+        if: always()
+
+      - name: Publish test reports for Android 5
+        uses: actions/upload-artifact@v1
+        with:
+          name: test-reports-api-21
+          path: lib/build/reports
+        if: always()
+
+      - name: Run instrumented tests on Android 8
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 26
+          arch: x86_64
+          script: ./gradlew connectedCheck --stacktrace
+        if: always()
+
+      - name: Publish test reports for Android 8
+        uses: actions/upload-artifact@v1
+        with:
+          name: test-reports-api-26
+          path: lib/build/reports
+        if: always()
+
+      - name: Run instrumented tests on Android 10
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          arch: x86_64
+          script: ./gradlew connectedCheck --stacktrace
+        if: always()
+
+      - name: Publish test reports for Android 10
+        uses: actions/upload-artifact@v1
+        with:
+          name: test-reports-api-29
+          path: lib/build/reports
+        if: always()
+
+      - name: Run instrumented tests on Android 11
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          arch: x86_64
+          script: ./gradlew connectedCheck --stacktrace
+        if: always()
+
+      - name: Publish test reports for Android 11
+        uses: actions/upload-artifact@v1
+        with:
+          name: test-reports-api-30
+          path: lib/build/reports
+        if: always()
+
+      - name: Run instrumented tests on Android 12
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 31
+          arch: x86_64
+          script: ./gradlew connectedCheck --stacktrace
+        if: always()
+
+      - name: Publish test reports for Android 12
+        uses: actions/upload-artifact@v1
+        with:
+          name: test-reports-api-31
+          path: lib/build/reports
+        if: always()
+
+      - name: Run instrumented tests on Android 13
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          arch: x86_64
+          target: google_apis
+          script: ./gradlew connectedCheck --stacktrace
+        if: always()
+
+      - name: Publish test reports for Android 13
+        uses: actions/upload-artifact@v1
+        with:
+          name: test-reports-api-33
+          path: lib/build/reports
+        if: always()

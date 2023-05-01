@@ -26,17 +26,13 @@ allprojects {
             url = uri("https://maven.pkg.github.com/EIDU/archive-patcher-android")
             credentials {
                 username =
-                    System.getenv("GITHUB_USER")
+                    System.getenv("READPACKAGES_GITHUB_USER")
                                 ?: localProperties.getProperty("githubReadPackagesUser")
-                                ?: throw NoSuchFieldException(
-                            "Missing property: ${"githubReadPackagesUser"}",
-                        )
+                                ?: throw NoSuchFieldException("Missing property: ${"githubReadPackagesUser"}")
                 password =
-                    System.getenv("GITHUB_TOKEN")
+                    System.getenv("READPACKAGES_GITHUB_TOKEN")
                                 ?: localProperties.getProperty("githubReadPackagesToken")
-                                ?: throw NoSuchFieldException(
-                            "Missing property: ${"githubReadPackagesToken"}",
-                        )
+                                ?: throw NoSuchFieldException("Missing property: ${"githubReadPackagesToken"}")
             }
         }
     }
