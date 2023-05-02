@@ -10,7 +10,7 @@ zlib 1.2.13, and implementing an `com.eidu.zip.AndroidDeflater` that utilizes th
 
 ## Usage
 
-Use `com.eidu.zip.AndroidFileByFileV1DeltaApplier` as a drop-in replacement for
+Use `com.eidu.archivepatcher.AndroidFileByFileV1DeltaApplier` as a drop-in replacement for
 `archive-patcher`'s `com.google.archivepatcher.applier.FileByFileV1DeltaApplier`:
 
 ```java

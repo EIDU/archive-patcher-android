@@ -1,5 +1,6 @@
-package com.eidu.zip;
+package com.eidu.archivepatcher;
 
+import com.eidu.zip.AndroidDeflater;
 import com.google.archivepatcher.applier.DeltaApplier;
 import com.google.archivepatcher.applier.FileByFileV1DeltaApplier;
 

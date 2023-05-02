@@ -1,7 +1,8 @@
-package com.eidu.zip;
+package com.eidu.archivepatcher;
 
 import android.os.Build;
 
+import com.eidu.zip.AndroidDeflater;
 import com.google.archivepatcher.shared.DefaultDeflateCompatibilityWindow;
 import com.google.archivepatcher.shared.DefaultDeflater;
 
