@@ -9,12 +9,6 @@ jobs:
   Release:
     runs-on: ubuntu-22.04
 
-    env:
-      GITHUB_USER: ${{ github.actor }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      READPACKAGES_GITHUB_USER: ${{ secrets.GH_READPACKAGES_USER }}
-      READPACKAGES_GITHUB_TOKEN: ${{ secrets.GH_READPACKAGES_TOKEN }}
-
     steps:
       - uses: actions/checkout@v2
 
@@ -24,4 +18,10 @@ jobs:
           java-version: '11'
 
       - name: Publish AAR
-        run: ./gradlew publish --stacktrace
+        run: ./gradlew publish --info --stacktrace
+        env:
+          MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          MAVEN_CENTRAL_KEY_ID: ${{ secrets.MAVEN_CENTRAL_KEY_ID }}
+          MAVEN_CENTRAL_KEY: ${{ secrets.MAVEN_CENTRAL_KEY }}
+          MAVEN_CENTRAL_KEY_PASSWORD: ${{ secrets.MAVEN_CENTRAL_KEY_PASSWORD }}
