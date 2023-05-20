@@ -1,5 +1,7 @@
 # archive-patcher-android
 
+![Maven Central](https://img.shields.io/maven-central/v/com.eidu/archive-patcher-android)
+
 ## Purpose
 
 This library exists because [archive-patcher](https://github.com/EIDU/archive-patcher)'s
@@ -9,6 +11,18 @@ versions. The way this library addresses the issue is by shipping binaries of (u
 zlib 1.2.13, and implementing an `com.eidu.zip.AndroidDeflater` that utilizes the bundled zlib.
 
 ## Usage
+
+To add the Gradle dependency:
+
+```
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("com.eidu:archive-patcher-android:<version>")
+}
+```
 
 Use `com.eidu.archivepatcher.AndroidFileByFileV1DeltaApplier` as a drop-in replacement for
 `archive-patcher`'s `com.google.archivepatcher.applier.FileByFileV1DeltaApplier`:
