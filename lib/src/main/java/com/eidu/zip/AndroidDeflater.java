@@ -26,6 +26,13 @@
 package com.eidu.zip;
 
 import static java.lang.System.loadLibrary;
+import static java.util.zip.Deflater.DEFAULT_COMPRESSION;
+import static java.util.zip.Deflater.DEFAULT_STRATEGY;
+import static java.util.zip.Deflater.FILTERED;
+import static java.util.zip.Deflater.FULL_FLUSH;
+import static java.util.zip.Deflater.HUFFMAN_ONLY;
+import static java.util.zip.Deflater.NO_FLUSH;
+import static java.util.zip.Deflater.SYNC_FLUSH;
 
 import com.google.archivepatcher.shared.IDeflater;
 
@@ -34,7 +41,7 @@ import java.util.zip.Inflater;
 
 /**
  * Adapted from https://android.googlesource.com/platform/libcore/, commit c46e557aedf.
- *
+ * <p>
  * This class provides support for general purpose compression using the
  * popular ZLIB compression library. The ZLIB compression library was
  * initially developed as part of the PNG graphics standard and is not
@@ -80,14 +87,14 @@ import java.util.zip.Inflater;
  * @author      David Connelly (adapted by Felix Engelhardt)
  */
 public
-class AndroidDeflater extends Deflater implements IDeflater {
+class AndroidDeflater implements IDeflater {
 
     private final ZStreamRef zsRef;
-    private byte[] buf = new byte[0];
-    private int off, len;
+    @SuppressWarnings("unused") private byte[] buf = new byte[0];
+    @SuppressWarnings("unused") private int off, len;
     private int level, strategy;
-    private boolean setParams;
-    private boolean finish, finished;
+    @SuppressWarnings("unused") private boolean setParams;
+    @SuppressWarnings("unused") private boolean finish, finished;
     private long bytesRead;
     private long bytesWritten;
 
@@ -115,6 +122,7 @@ class AndroidDeflater extends Deflater implements IDeflater {
      * Compressed data will be generated in ZLIB format.
      * @param level the compression level (0-9)
      */
+    @SuppressWarnings("unused")
     public AndroidDeflater(int level) {
         this(level, false);
     }
@@ -299,7 +307,7 @@ class AndroidDeflater extends Deflater implements IDeflater {
      * of 0 indicates that {@link #needsInput() needsInput} should be called
      * in order to determine if more input data is required.
      *
-     * <p>This method uses {@link #NO_FLUSH} as its compression flush mode.
+     * <p>This method uses {@link Deflater#NO_FLUSH} as its compression flush mode.
      * An invocation of this method of the form {@code deflater.deflate(b, off, len)}
      * yields the same result as the invocation of
      * {@code deflater.deflate(b, off, len, Deflater.NO_FLUSH)}.
@@ -321,7 +329,7 @@ class AndroidDeflater extends Deflater implements IDeflater {
      * of 0 indicates that {@link #needsInput() needsInput} should be called
      * in order to determine if more input data is required.
      *
-     * <p>This method uses {@link #NO_FLUSH} as its compression flush mode.
+     * <p>This method uses {@link Deflater#NO_FLUSH} as its compression flush mode.
      * An invocation of this method of the form {@code deflater.deflate(b)}
      * yields the same result as the invocation of
      * {@code deflater.deflate(b, 0, b.length, Deflater.NO_FLUSH)}.
@@ -342,29 +350,29 @@ class AndroidDeflater extends Deflater implements IDeflater {
      * <p>Compression flush mode is one of the following three modes:
      *
      * <ul>
-     * <li>{@link #NO_FLUSH}: allows the deflater to decide how much data
+     * <li>{@link Deflater#NO_FLUSH}: allows the deflater to decide how much data
      * to accumulate, before producing output, in order to achieve the best
      * compression (should be used in normal use scenario). A return value
      * of 0 in this flush mode indicates that {@link #needsInput()} should
      * be called in order to determine if more input data is required.
      *
-     * <li>{@link #SYNC_FLUSH}: all pending output in the deflater is flushed,
+     * <li>{@link Deflater#SYNC_FLUSH}: all pending output in the deflater is flushed,
      * to the specified output buffer, so that an inflater that works on
      * compressed data can get all input data available so far (In particular
      * the {@link #needsInput()} returns {@code true} after this invocation
-     * if enough output space is provided). Flushing with {@link #SYNC_FLUSH}
+     * if enough output space is provided). Flushing with {@link Deflater#SYNC_FLUSH}
      * may degrade compression for some compression algorithms and so it
      * should be used only when necessary.
      *
-     * <li>{@link #FULL_FLUSH}: all pending output is flushed out as with
-     * {@link #SYNC_FLUSH}. The compression state is reset so that the inflater
+     * <li>{@link Deflater#FULL_FLUSH}: all pending output is flushed out as with
+     * {@link Deflater#SYNC_FLUSH}. The compression state is reset so that the inflater
      * that works on the compressed output data can restart from this point
      * if previous compressed data has been damaged or if random access is
-     * desired. Using {@link #FULL_FLUSH} too often can seriously degrade
+     * desired. Using {@link Deflater#FULL_FLUSH} too often can seriously degrade
      * compression.
      * </ul>
      *
-     * <p>In the case of {@link #FULL_FLUSH} or {@link #SYNC_FLUSH}, if
+     * <p>In the case of {@link Deflater#FULL_FLUSH} or {@link Deflater#SYNC_FLUSH}, if
      * the return value is {@code len}, the space available in output
      * buffer {@code b}, this method should be invoked again with the same
      * {@code flush} parameter and more output space.
