@@ -40,3 +40,5 @@ new AndroidFileByFileV1DeltaApplier()
 
 Since this library contains modified sources that are originally licensed under GPLv2, this
 library is as well. See [LICENSE](LICENSE) for details.
+
+test
