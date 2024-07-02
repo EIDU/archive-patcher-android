@@ -19,6 +19,9 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
+      - name: Lint and check
+        run: ./gradlew lintRelease check --stacktrace
+
       - name: Run instrumented tests on Android 5
         uses: reactivecircus/android-emulator-runner@v2
         with:
