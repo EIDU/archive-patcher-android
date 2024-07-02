@@ -36,6 +36,15 @@ new AndroidFileByFileV1DeltaApplier()
     );
 ```
 
+## Support
+
+Please contact EIDU at [dev@eidu.com](mailto:dev@eidu.com) if you need help.
+
+## Contributing
+
+We are excited about your contributions. See
+[our current contribution guidelines](https://dev.eidu.com/contributing/overview) to get started.
+
 ## License
 
 Since this library contains modified sources that are originally licensed under GPLv2, this
