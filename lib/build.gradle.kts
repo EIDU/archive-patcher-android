@@ -1,4 +1,3 @@
-import java.util.Properties
 import org.gradle.jvm.tasks.Jar
 
 plugins {
@@ -7,13 +6,6 @@ plugins {
     id("signing")
     id("com.palantir.git-version") version "3.0.0"
     id("com.github.jk1.dependency-license-report") version "2.8"
-}
-
-val localProperties = Properties().apply {
-    val localPropertiesFile = project.rootProject.file("local.properties")
-    if (localPropertiesFile.exists()) {
-        load(localPropertiesFile.inputStream())
-    }
 }
 
 android {
