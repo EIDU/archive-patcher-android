@@ -1,9 +1,11 @@
 import org.gradle.jvm.tasks.Jar
+import java.util.Base64
 
 plugins {
     id("com.android.library")
     id("maven-publish")
     id("signing")
+    id("tech.yanand.maven-central-publish").version("1.3.0")
     id("com.palantir.git-version") version "3.0.0"
     id("com.github.jk1.dependency-license-report") version "2.8"
 }
@@ -76,8 +78,7 @@ tasks.register<Javadoc>("javadoc") {
     val variant = android.libraryVariants.first { it.name == "release" }
     description = "Generates Javadoc for ${variant.name}."
     source = fileTree(variant.sourceSets.first { it.name == "main" }.javaDirectories.first())
-    classpath = files(variant.javaCompile.classpath.files) +
-            files("${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar")
+    classpath = files(variant.javaCompileProvider.map { it.classpath }, "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar")
     (options as StandardJavadocDocletOptions).apply {
         source = "8" // workaround for https://bugs.openjdk.java.net/browse/JDK-8212233
         links(
@@ -87,7 +88,7 @@ tasks.register<Javadoc>("javadoc") {
     }
 }
 
-val sourcesJar by tasks.creating(Jar::class) {
+val sourcesJar by tasks.registering(Jar::class) {
     archiveClassifier.set("sources")
     from(sourceSets.getByName("main").allSource)
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
@@ -102,16 +103,6 @@ val gitVersion: groovy.lang.Closure<String> by extra
 
 afterEvaluate {
     publishing {
-        repositories {
-            maven {
-                name = "MavenCentral"
-                url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-                credentials {
-                    username = System.getenv("MAVEN_CENTRAL_USERNAME")
-                    password = System.getenv("MAVEN_CENTRAL_PASSWORD")
-                }
-            }
-        }
         publications {
             create<MavenPublication>("maven") {
                 groupId = "com.eidu"
@@ -148,4 +139,10 @@ afterEvaluate {
             }
         }
     }
+}
+
+mavenCentral {
+    authToken.set(Base64.getEncoder().encodeToString("${System.getenv("MAVEN_CENTRAL_USERNAME")}:${System.getenv("MAVEN_CENTRAL_PASSWORD")}".toByteArray()))
+    publishingType.set("USER_MANAGED")
+    maxWait.set(300)
 }
