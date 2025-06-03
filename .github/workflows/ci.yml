@@ -31,7 +31,7 @@ jobs:
         if: always()
 
       - name: Publish test reports for Android 5
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: test-reports-api-21
           path: lib/build/reports
@@ -46,7 +46,7 @@ jobs:
         if: always()
 
       - name: Publish test reports for Android 8
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: test-reports-api-26
           path: lib/build/reports
@@ -61,7 +61,7 @@ jobs:
         if: always()
 
       - name: Publish test reports for Android 10
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: test-reports-api-29
           path: lib/build/reports
@@ -76,7 +76,7 @@ jobs:
         if: always()
 
       - name: Publish test reports for Android 11
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: test-reports-api-30
           path: lib/build/reports
@@ -91,7 +91,7 @@ jobs:
         if: always()
 
       - name: Publish test reports for Android 12
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: test-reports-api-31
           path: lib/build/reports
@@ -107,7 +107,7 @@ jobs:
         if: always()
 
       - name: Publish test reports for Android 13
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: test-reports-api-33
           path: lib/build/reports
